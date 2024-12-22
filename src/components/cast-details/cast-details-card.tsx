@@ -44,9 +44,11 @@ const CastDetailsCard: React.FC<CastDetailsCardProps> = ({ castHash }) => {
       className="p-3 flex flex-col gap-[10px]"
     >
       <div className="flex flex-row gap-2">
-        <Avatar className="w-[38px] h-[38px]">
-          <AvatarImage src={cast.author.pfp_url} alt={cast.author.display_name} />
-        </Avatar>
+        <Link href={`/user/${cast.author.username}`}>
+          <Avatar className="w-[38px] h-[38px]">
+            <AvatarImage src={cast.author.pfp_url} alt={cast.author.display_name} />
+          </Avatar>
+        </Link>
         <div className="flex flex-col items-start justify-center gap-0 w-full">
           <div className="flex flex-row gap-2">
             <p className="font-semibold text-sm md:text-base whitespace-nowrap">
@@ -75,6 +77,7 @@ const CastDetailsCard: React.FC<CastDetailsCardProps> = ({ castHash }) => {
           recastsCount={cast.reactions.recasts_count}
           repliesCount={cast.replies.count}
           sharesCount={0}
+          castData={cast.author}
           loading={isLoading}
         />
         <CastFooter

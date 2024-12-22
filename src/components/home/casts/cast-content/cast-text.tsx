@@ -99,7 +99,7 @@ const CastText: React.FC<CastTextProps> = ({
           processedParts.push(
             <Link
               key={`username-${i}`}
-              href={`/profile/${fullMatch.slice(1)}`}
+              href={`/user/${fullMatch.slice(1)}`}
               className="text-blue-500 hover:underline"
             >
               {fullMatch}

@@ -81,7 +81,7 @@ const CastHeader: React.FC<CastHeaderProps> = ({
                 </div>
               </div>
               <div className="w-fit flex flex-row gap-1 items-center justify-end ">
-                <CastOptionsBottomSheet castHash={castHash} />
+                {/* <CastOptionsBottomSheet castHash={castHash} /> */}
               </div>
             </div>
           </motion.div>

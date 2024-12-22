@@ -157,6 +157,7 @@ interface IconProps {
   size?: number;
   strokeWidth?: number;
   className?: string;
+  isToggled?: boolean;
 }
 
 const Icon: React.FC<IconProps> = ({
@@ -165,6 +166,7 @@ const Icon: React.FC<IconProps> = ({
   size = 24,
   strokeWidth = 2,
   className = '',
+  isToggled = false,
 }) => {
   return (
     <svg
@@ -172,11 +174,12 @@ const Icon: React.FC<IconProps> = ({
       width={size}
       height={size}
       viewBox="0 0 24 24"
-      fill="none"
+      fill={isToggled ? 'red' : 'none'}
       stroke="currentColor"
       strokeWidth={strokeWidth}
       strokeLinecap="round"
       strokeLinejoin="round"
+      values={isToggled as any}
       className={`feather feather-${name} ${color} ${className}`}
     >
       {iconPaths[name]}

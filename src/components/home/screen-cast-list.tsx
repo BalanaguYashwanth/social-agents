@@ -12,7 +12,7 @@ interface CastListProps {
 
 const CastList: React.FC<CastListProps> = ({ casts, tabType }) =>
   casts.length > 0 ? (
-    <ul>
+    <ul className="relative">
       {casts.map((cast) => (
         <Link href={`/cast/${cast.hash}`} key={cast.hash}>
           <li className="border-b min-w-full border-gray-200 bg-white cursor-pointer">

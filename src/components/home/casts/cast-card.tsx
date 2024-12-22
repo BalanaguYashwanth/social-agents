@@ -30,7 +30,6 @@ const CastCard: React.FC<CastCardProps> = ({ castData, viewerFid, isParent }) =>
     isError,
     error,
   } = useFetchCastDetails(castData.hash, user?.farcaster?.fid);
-
   return (
     <motion.div
       layout
@@ -63,15 +62,7 @@ const CastCard: React.FC<CastCardProps> = ({ castData, viewerFid, isParent }) =>
           recastsCount={fullCastDetails?.cast.reactions.recasts_count}
           repliesCount={fullCastDetails?.cast.replies.count}
           sharesCount={0}
-          loading={isLoading}
-        />
-        <CastFooter
-          likesCount={fullCastDetails?.cast.reactions.likes_count}
-          recastsCount={fullCastDetails?.cast.reactions.recasts_count}
-          repliesCount={fullCastDetails?.cast.replies.count}
-          sharesCount={0}
-          dollarCount={0}
-          castChannel={fullCastDetails?.cast.channel?.name}
+          castData={castData?.author}
           loading={isLoading}
         />
       </motion.div>

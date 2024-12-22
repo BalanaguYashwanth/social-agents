@@ -1,7 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from '@/components/ui/icon';
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion, AnimatePresence } from 'framer-motion';
+import { usePrivy } from '@privy-io/react-auth';
+import { reduceAPICredits } from '@/utils/trade.action';
+import toast, { Toaster } from 'react-hot-toast';
 
 interface CastActionsBarProps {
   likesCount?: number;
@@ -9,6 +12,7 @@ interface CastActionsBarProps {
   recastsCount?: number;
   repliesCount?: number;
   loading: boolean;
+  castData: any;
 }
 
 interface EmojiReactionProps {
@@ -47,9 +51,39 @@ const CastActionsBar: React.FC<CastActionsBarProps> = ({
   recastsCount,
   repliesCount,
   loading,
+  castData,
 }) => {
+  const { user } = usePrivy();
+  const userFid = Number(user?.farcaster?.fid);
+  const ownerFid = Number(castData?.fid);
+  const [isLiked, setIsLiked] = useState(false);
+
+  const handleLike = async (e: any) => {
+    try {
+      e.preventDefault();
+      toast.loading('Processing...');
+      const data = await reduceAPICredits({ userFid, ownerFid });
+      toast.dismiss();
+      if (!data) {
+        toast.error('You must need at least 2 coins to like.');
+        return;
+      } else if (data?.credits) {
+        toast.success(`You have ${data.credits} coins remaining.`);
+        setIsLiked(true);
+      }
+    } catch (error) {
+      toast.error('Something went wrong. Please try again.');
+    }
+    //faracaster api
+    // const response = await fetch(`/api/like`, {
+    //   method: 'POST',
+    //   body: JSON.stringify({ userFid, ownerFid }),
+    // });
+  };
+
   return (
     <AnimatePresence mode="wait">
+      {/* <Toaster /> */}
       {loading ? (
         <motion.div
           key="loading"
@@ -70,8 +104,12 @@ const CastActionsBar: React.FC<CastActionsBarProps> = ({
         >
           {/* Existing content */}
           <div className="flex gap-0 justify-start items-center">
-            <div className="px-2 py-2 flex flex-row items-center justify-center gap-2 rounded-full bg-white">
+            <div
+              onClick={handleLike}
+              className="px-2 py-2 flex flex-row items-center justify-center gap-2 rounded-full bg-white"
+            >
               <Icon
+                isToggled={isLiked}
                 name="heart"
                 className="w-[20px] h-[20px]"
                 color="text-gray-400"
@@ -79,42 +117,6 @@ const CastActionsBar: React.FC<CastActionsBarProps> = ({
               />
               <p className="text-gray-400 text-sm pb-[2px] font-semiBold">{1}</p>
             </div>
-            <div className="px-2 py-1 flex flex-row items-center justify-center gap-2 rounded-full bg-white">
-              <Icon
-                name="recast"
-                className="w-[20px] h-[20px]"
-                color="text-gray-400 "
-                strokeWidth={2}
-              />
-              <p className="text-gray-400 text-md font-semiBold hidden">{recastsCount}</p>
-            </div>
-            <div className="px-2 py-1 flex flex-row items-center justify-center gap-2 rounded-full bg-white">
-              <Icon
-                name="annotation"
-                className="w-[20px] h-[20px]"
-                color="text-gray-400 "
-                strokeWidth={2}
-              />
-              <p className="text-gray-400 text-md font-semiBold hidden">{recastsCount}</p>
-            </div>
-          </div>
-          <div className="flex gap-1">
-            {recastsCount !== undefined && recastsCount > 0 && (
-              <EmojiReaction
-                icon="https://pbs.twimg.com/profile_images/1831795880300601344/ICk7r70l_400x400.jpg"
-                count={recastsCount}
-                textColor="text-blue-600"
-                selected
-              />
-            )}
-            {likesCount !== undefined && likesCount > 0 && (
-              <EmojiReaction
-                icon="https://pbs.twimg.com/profile_images/1600956334635098141/ZSzYTrHf_400x400.jpg"
-                count={likesCount}
-                textColor="text-yellow-500"
-                selected
-              />
-            )}
           </div>
         </motion.div>
       )}

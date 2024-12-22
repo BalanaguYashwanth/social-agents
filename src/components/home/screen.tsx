@@ -11,6 +11,8 @@ import { useFetchUserFeed } from '@/hooks/api/feed/useFetchUserFeed';
 import TabHeader from './screen-tab-header';
 import TabContent from './screen-tab-content';
 import CastList from './screen-cast-list';
+import { PlusIcon } from 'lucide-react';
+import AgentDialog from '../create-agent-form/create-agent-form';
 
 type TabType = 'following' | 'filter';
 
@@ -30,8 +32,8 @@ const HomeScreen: React.FC = () => {
     const data = await response.json();
 
     const feedIds = data.feedIds;
-    const fids = feedIds.map(({fid}: any) => parseInt(fid));
-    if(!(fids.length > 0) || !fids){
+    const fids = feedIds.map(({ fid }: any) => parseInt(fid));
+    if (!(fids.length > 0) || !fids) {
       setFids([906065, 905779]);
       return;
     }
@@ -57,9 +59,12 @@ const HomeScreen: React.FC = () => {
   if (error) return <ErrorMessage message="Failed to load casts. Please try again later." />;
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full relative">
       <div className="mt-4">
         <CastList casts={castsData?.casts || []} tabType="filter" />
+        <div className="position fixed right-3 bottom-16">
+          <AgentDialog />
+        </div>
         {loading && <LoadingSpinner />}
         <div ref={ref} className="h-20" />
       </div>

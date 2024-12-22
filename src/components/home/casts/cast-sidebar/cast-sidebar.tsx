@@ -22,9 +22,9 @@ const CastCardSidebar: React.FC<CastCardSidebarProps> = ({ castDetails, isParent
         <Avatar className="w-[38px] h-[38px]">
           <AvatarImage src={castDetails.author.pfp_url} alt={castDetails.author.display_name} />
         </Avatar>
-      {isParent && (
-        <div className="absolute top-[38px] left-1/2 w-0.5 h-full bg-gray-300 -translate-x-1/2" />
-      )}
+        {isParent && (
+          <div className="absolute top-[38px] left-1/2 w-0.5 h-full bg-gray-300 -translate-x-1/2" />
+        )}
       </Link>
     </motion.div>
   );

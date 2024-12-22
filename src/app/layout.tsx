@@ -4,7 +4,7 @@ import { Inter } from 'next/font/google';
 
 import MainLayout from '@/components/layouts/MainLayout';
 import Providers from '@/components/providers';
-import { Toaster } from 'sonner';
+import { Toaster } from 'react-hot-toast';
 import localFont from 'next/font/local';
 import './globals.css';
 
