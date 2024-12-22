@@ -12,11 +12,13 @@ interface FetchCastsParams {
   fid: number | undefined;
   type: TabType;
   cursor?: string;
+  fids?: any;
 }
 
-const fetchCasts = async ({ fid, type, cursor }: FetchCastsParams): Promise<CastData> => {
+const fetchCasts = async ({ fid, fids, type, cursor }: FetchCastsParams): Promise<CastData> => {
+  const stringifiedFids = JSON.stringify(fids);
   const response = await fetch(
-    `/api/casts?fid=${fid}&type=${type}${cursor ? `&cursor=${cursor}` : ''}`
+    `/api/casts?fid=${fid}&fids=${stringifiedFids}&type=${type}${cursor ? `&cursor=${cursor}` : ''}`
   );
 
   if (!response.ok) {
@@ -26,26 +28,29 @@ const fetchCasts = async ({ fid, type, cursor }: FetchCastsParams): Promise<Cast
   return response.json();
 };
 
-export const useFetchUserFeed = (fid: number | undefined) => {
+export const useFetchUserFeed = (fid: number | undefined, fids?: any) => {
   const queryClient = useQueryClient();
 
   const queries = useQueries({
-    queries: ['following', 'filter'].map((type) => ({
-      queryKey: ['casts', fid, type],
-      queryFn: () => fetchCasts({ fid: fid!, type: type as TabType }),
-      enabled: !!fid,
-      staleTime: Infinity,
-      placeholderData: (previousData: CastData | undefined) => previousData,
-    })),
+    queries: [
+      {
+        queryKey: ['casts', fid, 'filter'],
+        queryFn: () => fetchCasts({ fid: fid!, fids, type: 'filter' as TabType }),
+        enabled: !!fid,
+        staleTime: Infinity,
+        placeholderData: (previousData: CastData | undefined) => previousData,
+      },
+    ],
   });
 
-  const [followingQuery, filterQuery] = queries;
+  const [filterQuery] = queries;
 
   const fetchMoreCasts = async (type: TabType) => {
     const currentData = queryClient.getQueryData<CastData>(['casts', fid, type]);
     if (currentData?.nextCursor) {
       const newData = await fetchCasts({
         fid: fid!,
+        fids,
         type,
         cursor: currentData.nextCursor,
       });
@@ -57,12 +62,9 @@ export const useFetchUserFeed = (fid: number | undefined) => {
   };
 
   return {
-    castsData: {
-      following: followingQuery.data ?? { casts: [], nextCursor: null },
-      filter: filterQuery.data ?? { casts: [], nextCursor: null },
-    },
-    loading: followingQuery.isLoading || filterQuery.isLoading,
-    error: followingQuery.error || filterQuery.error,
+    castsData: filterQuery.data ?? { casts: [], nextCursor: null },
+    loading: filterQuery.isLoading || filterQuery.isLoading,
+    error: filterQuery.error || filterQuery.error,
     fetchMoreCasts,
   };
 };

@@ -9,17 +9,15 @@ import CastList from '@/components/home/screen-cast-list';
 
 const ProfilePage = () => {
   const url = usePathname();
-  const fid = url?.split('/').pop();
-  const { user } = usePrivy();
+  const username = url?.split('/').pop();
   const [userData, setUserData] = useState<any>(null);
   const [loading, setLoading] = useState(true);
-  const { castsData, error, fetchMoreCasts } = useFetchUserFeed(user?.farcaster?.fid ?? undefined);
 
   useEffect(() => {
     const fetchUserData = async () => {
-      if (fid) {
+      if (username) {
         try {
-          const response = await fetch(`/api/user/${fid}`);
+          const response = await fetch(`/api/user/${username}`);
           const data = await response.json();
           setUserData(data);
         } catch (error) {
@@ -31,12 +29,12 @@ const ProfilePage = () => {
     };
 
     fetchUserData();
-  }, [fid]);
+  }, [username]);
 
   if (loading) return <div>Loading...</div>;
   if (!userData || !userData.user) return <div>User not found</div>;
 
-  const { user: userProfile, casts } = userData;
+  const { user: userProfile, casts: castsData } = userData;
 
   return (
     <div className="container mx-auto px-4 py-8">
@@ -54,14 +52,14 @@ const ProfilePage = () => {
             <p className="text-gray-600">@{userProfile.result.user.username}</p>
           </div>
         </div>
-        <p className="text-gray-700">{userProfile.profile?.bio?.text || 'No bio available'}</p>
+        <p className="text-gray-700">{userProfile.profile?.bio?.text || ''}</p>
         <div className="mt-4 flex space-x-4">
           <span>{userProfile.result.user.followerCount} followers</span>
           <span>{userProfile.result.user.followingCount} following</span>
         </div>
       </div>
       <h2 className="text-xl font-bold mb-4">Recent Casts</h2>
-      <CastList casts={castsData.following.casts} tabType="following" />
+      <CastList casts={castsData.casts} tabType="filter" />
 
       <div className="space-y-4"></div>
     </div>

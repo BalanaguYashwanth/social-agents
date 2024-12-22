@@ -1,5 +1,4 @@
 import React from 'react';
-import { TabsContent } from '@/components/ui/tabs';
 import CastList from './screen-cast-list';
 import { Cast } from '@neynar/nodejs-sdk/build/neynar-api/v2';
 
@@ -15,14 +14,9 @@ interface TabContentProps {
   currentTab: TabType;
 }
 
-const TabContent: React.FC<TabContentProps> = ({ castsData, currentTab }) => (
+const TabContent: React.FC<any> = ({ castsData, currentTab }) => (
   <>
-    <TabsContent value="following" className="w-full">
-      <CastList casts={castsData.following.casts} tabType="following" />
-    </TabsContent>
-    <TabsContent value="filter" className="w-full">
-      <CastList casts={castsData.filter.casts} tabType="filter" />
-    </TabsContent>
+    <CastList casts={castsData.filter.casts} tabType="filter" />
   </>
 );
 

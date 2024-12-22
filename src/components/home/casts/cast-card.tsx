@@ -31,7 +31,6 @@ const CastCard: React.FC<CastCardProps> = ({ castData, viewerFid, isParent }) =>
     error,
   } = useFetchCastDetails(castData.hash, user?.farcaster?.fid);
 
-  console.log('fullCastDetails', fullCastDetails);
   return (
     <motion.div
       layout

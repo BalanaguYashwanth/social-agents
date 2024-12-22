@@ -5,6 +5,8 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   const { searchParams } = new URL(request.url);
   const fid = searchParams.get('fid');
+  const fids = JSON.parse(searchParams.get('fids') || '[906065]');
+  const numFids = fids.map((fid: any) => parseInt(fid));
   const type = searchParams.get('type') as 'following' | 'filter';
   const cursor = searchParams.get('cursor');
   const viewerFid = searchParams.get('viewerFid');
@@ -18,21 +20,16 @@ export async function GET(request: NextRequest) {
 
     let response;
     const commonParams = {
-      fid: parseInt(fid),
       limit: 10,
       cursor: cursor || undefined,
     };
 
-    if (type === 'following') {
-      response = await client.fetchFeed('following', {
-        ...commonParams,
-        viewerFid: viewerFid ? parseInt(viewerFid) : undefined,
-      });
-    } else if (type === 'filter') {
+    if (type === 'filter') {
       response = await client.fetchFeed('filter', {
         ...commonParams,
+        fids: numFids as any,
         viewerFid: viewerFid ? parseInt(viewerFid) : undefined,
-        filterType: FilterType.GlobalTrending,
+        filterType: FilterType.Fids,
       });
     }
 

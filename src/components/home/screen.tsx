@@ -10,6 +10,7 @@ import { useInView } from 'react-intersection-observer';
 import { useFetchUserFeed } from '@/hooks/api/feed/useFetchUserFeed';
 import TabHeader from './screen-tab-header';
 import TabContent from './screen-tab-content';
+import CastList from './screen-cast-list';
 
 type TabType = 'following' | 'filter';
 
@@ -20,11 +21,30 @@ interface CastData {
 
 const HomeScreen: React.FC = () => {
   const { user } = usePrivy();
-  const [currentTab, setCurrentTab] = useState<TabType>('following');
+  const [currentTab, setCurrentTab] = useState<TabType>('filter');
   const { ref, inView } = useInView({ threshold: 0 });
+  const [fids, setFids] = useState<any>([906065, 905779]);
+
+  const fetchFids = async () => {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_ELIZA_AGENT_API}/feedids`);
+    const data = await response.json();
+
+    const feedIds = data.feedIds;
+    const fids = feedIds.map(({fid}: any) => parseInt(fid));
+    if(!(fids.length > 0) || !fids){
+      setFids([906065, 905779]);
+      return;
+    }
+    setFids(fids);
+  };
+
+  useEffect(() => {
+    fetchFids();
+  }, []);
 
   const { castsData, loading, error, fetchMoreCasts } = useFetchUserFeed(
-    user?.farcaster?.fid ?? undefined
+    user?.farcaster?.fid ?? undefined,
+    fids
   );
 
   useEffect(() => {
@@ -38,18 +58,11 @@ const HomeScreen: React.FC = () => {
 
   return (
     <div className="flex flex-col w-full">
-      <Tabs
-        value={currentTab}
-        onValueChange={(value) => setCurrentTab(value as TabType)}
-        className="w-full flex flex-col flex-grow"
-      >
-        <TabHeader />
-        <div className="flex-grow overflow-y-auto">
-          <TabContent castsData={castsData} currentTab={currentTab} />
-          {loading && <LoadingSpinner />}
-          <div ref={ref} className="h-20" />
-        </div>
-      </Tabs>
+      <div className="mt-4">
+        <CastList casts={castsData?.casts || []} tabType="filter" />
+        {loading && <LoadingSpinner />}
+        <div ref={ref} className="h-20" />
+      </div>
     </div>
   );
 };
