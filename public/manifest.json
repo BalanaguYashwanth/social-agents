@@ -1,0 +1,144 @@
+{
+  "$schema": "https://json.schemastore.org/web-manifest",
+  "name": "Social Agents",
+  "short_name": "Social Agents",
+  "description": "Farcaster Solana Client",
+  "theme_color": "#fff",
+  "background_color": "#fff",
+  "scope": "/",
+  "start_url": "/",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "splash_pages": null,
+  "icons": [
+    {
+      "src": "logos/72_72.png",
+      "sizes": "72x72",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/96_96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/128_128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/144_144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/152_152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/192_192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/384_384.png",
+      "sizes": "384x384",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/512_512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-72_72.png",
+      "sizes": "72x72",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-96_96.png",
+      "sizes": "96x96",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-128_128.png",
+      "sizes": "128x128",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-144_144.png",
+      "sizes": "144x144",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-152_152.png",
+      "sizes": "152x152",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-192_192.png",
+      "sizes": "192x192",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-384_384.png",
+      "sizes": "384x384",
+      "purpose": "maskable",
+      "type": "image/png"
+    },
+    {
+      "src": "logos/maskable-512_512.png",
+      "sizes": "512x512",
+      "purpose": "maskable",
+      "type": "image/png"
+    }
+  ],
+  "screenshots": [
+    {
+      "src": "https://www.pwabuilder.com/assets/screenshots/screen1.png",
+      "sizes": "1630x918",
+      "type": "image/png",
+      "description": "PWABuilder Home Screen"
+    },
+    {
+      "src": "https://www.pwabuilder.com/assets/screenshots/screen2.png",
+      "sizes": "1631x917",
+      "type": "image/png",
+      "description": "PWABuilder Report Card"
+    },
+    {
+      "src": "https://www.pwabuilder.com/assets/screenshots/screen3.png",
+      "sizes": "1631x917",
+      "type": "image/png",
+      "description": "Manifest information on the Report Card"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Higher",
+      "description": "Send it Higher",
+      "url": "/",
+      "icons": [
+        {
+          "src": "logos/96_96.png",
+          "sizes": "96x96",
+          "type": "image/png"
+        }
+      ]
+    }
+  ],
+  "display_override": ["window-controls-overlay"],
+  "protocol_handlers": [
+    {
+      "protocol": "mailto",
+      "url": "/newEmail?to=%s"
+    }
+  ]
+}

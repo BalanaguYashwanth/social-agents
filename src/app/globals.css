@@ -1,0 +1,328 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'sfPro-bold';
+  src: url('../../public/fonts/SF-Pro-Rounded-Bold.otf');
+}
+
+@font-face {
+  font-family: 'sfPro-light';
+  src: url('../../public/fonts/SF-Pro-Rounded-Light.otf');
+}
+
+@font-face {
+  font-family: 'sfPro-heavy';
+  src: url('../../public/fonts/SF-Pro-Rounded-Heavy.otf');
+}
+
+@font-face {
+  font-family: 'sfPro-medium';
+  src: url('../../public/fonts/SF-Pro-Rounded-Medium.otf');
+}
+
+@font-face {
+  font-family: 'sfPro-regular';
+  src: url('../../public/fonts/SF-Pro-Rounded-Regular.otf');
+}
+
+@font-face {
+  font-family: 'sfPro-semibold';
+  src: url('../../public/fonts/SF-Pro-Rounded-Semibold.otf');
+}
+
+@font-face {
+  font-family: 'sfPro-thin';
+  src: url('../../public/fonts/SF-Pro-Rounded-Thin.otf');
+}
+
+@font-face {
+  font-family: 'sfPro-ultralight';
+  src: url('../../public/fonts/SF-Pro-Rounded-Ultralight.otf');
+}
+
+@layer base {
+  :root {
+    --background-primary: 0 0% 96%;
+    --surface-primary: 0 0% 100%;
+    --surface-secondary: 0 0% 93%;
+    --surface-inverse: 0 0% 7%;
+    --card-primary: 0 0% 96%;
+    --card-secondary: 0 0% 100%;
+    --text-primary: 0 0% 0%;
+    --text-secondary: 0 0% 60%;
+    --text-inverse: 0 0% 100%;
+    --text-muted: 0 0% 54%;
+    --text-positive: 151 79% 42%;
+    --text-negative: 14 99% 63%;
+    --text-info: 203 100% 46%;
+    --primary-border: 0 0% 100%;
+    --secondary-border: 0 0% 84%;
+    --menu-surface: 0 0% 100%;
+    --menu-card: 0 0% 96%;
+    --menu-item-card: 0 0% 96%;
+  }
+
+  .dark {
+    --background-primary: 0 0% 0%;
+    --surface-primary: 0 0% 7%;
+    --surface-secondary: 0 0% 16%;
+    --surface-inverse: 0 0% 100%;
+    --card-primary: 0 0% 11%;
+    --card-secondary: 0 0% 50%;
+    --text-primary: 0 0% 100%;
+    --text-secondary: 0 0% 61%;
+    --text-inverse: 0 0% 0%;
+    --text-muted: 0 0% 44%;
+    --text-positive: 151 79% 42%;
+    --text-negative: 14 99% 63%;
+    --text-info: 203 100% 46%;
+    --primary-border: 0 0% 16%;
+    --secondary-border: 0 0% 7%;
+    --menu-surface: 0 0% 11%;
+    --menu-card: 0 0% 7%;
+    --menu-item-card: 0 0% 7%;
+  }
+}
+
+@layer utilities {
+  @keyframes draw {
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+  .animate-draw {
+    animation: draw 3s ease-in-out infinite alternate;
+  }
+}
+
+@layer base {
+  * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  body {
+    @apply bg-backgroundPrimary text-textPrimary;
+    font-family: 'inter', sans-serif;
+    overscroll-behavior-y: none;
+  }
+  .sf-black {
+    font-family: 'sfPro-black', sans-serif;
+  }
+  .sf-bold {
+    font-family: 'sfPro-bold', sans-serif;
+  }
+  .sf-heavy {
+    font-family: 'sfPro-heavy', sans-serif;
+  }
+  .sf-light {
+    font-family: 'sfPro-light', sans-serif;
+  }
+  .sf-medium {
+    font-family: 'sfPro-medium', sans-serif;
+  }
+  .sf-regular {
+    font-family: 'sfPro-regular', sans-serif;
+  }
+  .sf-semibold {
+    font-family: 'sfPro-semibold', sans-serif;
+  }
+  .sf-thin {
+    font-family: 'sfPro-thin', sans-serif;
+  }
+  .sf-ultralight {
+    font-family: 'sfPro-ultralight', sans-serif;
+  }
+
+  .slider-gradient {
+    background: linear-gradient(90deg, #17bf6d 0%, #17bf6d 46%, #0091eb 100%);
+  }
+
+  .btn-box-shadow {
+    box-shadow:
+      -0.991px -3.469px 8.028px 0px #0091eb inset,
+      -6.938px 7.434px 17.345px 0px #fff inset;
+  }
+
+  [vaul-drawer][vaul-drawer-direction='bottom']::after {
+    top: 100%;
+    bottom: initial;
+    left: 0;
+    right: 0;
+    height: 0 !important;
+  }
+
+  .css-ai1c84-ModalDialog-ModalDialog {
+    background-color: #17bf6d !important;
+  }
+
+  .prize-pool-gradient-light {
+    background: linear-gradient(0deg, #f5f5f5 0%, #f5f5f5 100%),
+      linear-gradient(86deg, #17bf6d -18.16%, #1d9bf0 54.09%, #caefff 124.6%);
+  }
+
+  .prize-pool-gradient-dark {
+    background: linear-gradient(0deg, #1b1b1b 0%, #1b1b1b 100%),
+      linear-gradient(86deg, #17bf6d -18.16%, #1d9bf0 54.09%, #caefff 124.6%);
+  }
+
+  .dropdown-box-shadow {
+    box-shadow: 0px 4px 40px 0px rgba(0, 0, 0, 0.25);
+  }
+}
+/* --- wallet adapter code --- */
+.wallet-adapter-modal {
+  background: #00000040;
+}
+.wallet-adapter-modal-wrapper {
+  border-radius: 36px;
+  background-color: light-dark(#f5f5f5, #1b1b1b) !important;
+  background: light-dark(#f5f5f5, #1b1b1b) !important;
+  box-shadow: 0px 0px 40px 0px rgba(69, 71, 69, 0.2) !important;
+  width: 80vw;
+  max-width: 400px;
+  width: fit;
+}
+
+.wallet-adapter-modal-title {
+  padding: 24px 24px 12px 24px;
+  display: none;
+  font-family: 'sfPro-d3', sans-serif;
+}
+
+.wallet-adapter-modal-wrapper:before {
+  content: 'Connect Wallet';
+  font-size: 24px;
+  padding: 24px 24px 24px 24px;
+  font-family: 'sfPro-d2', sans-serif;
+  color: light-dark(#8a8a8a, #707070);
+  width: 80vw;
+  max-width: 400px;
+}
+
+.wallet-adapter-modal-button-close {
+  top: 24px;
+  background: none;
+  color: light-dark(#8a8a8a, #707070);
+}
+.wallet-adapter-modal-button-close:hover {
+  color: light-dark(#8a8a8a, #707070);
+}
+.wallet-adapter-modal-list {
+  padding: 0px 24px 8px 24px;
+}
+.wallet-adapter-button {
+  margin-bottom: 12px;
+  border-radius: 14px !important;
+  padding: 8px 20px !important;
+  height: fit-content;
+  gap: 8px;
+  font-family: 'sfPro-d2', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: light-dark(#000, #fff);
+  background: light-dark(#ffffff, #131313) !important;
+}
+
+.wallet-adapter-button .wallet-adapter-button-start-icon > img {
+  width: 36px;
+  min-width: 36px;
+  height: 36px;
+}
+
+.wallet-adapter-button > span {
+  font-size: 12px;
+  display: none;
+  font: 'sfPro-medium', sans-serif;
+}
+
+.wallet-adapter-modal-list-more {
+  display: none;
+  border: 1px solid red;
+  width: 400px;
+  padding: 16px 24px;
+  color: light-dark(#8a8a8a, #707070);
+}
+.wallet-adapter-modal-list-more > svg > path {
+  color: light-dark(#8a8a8a, #707070);
+}
+
+/* --- wallet adapter button --- */
+.wallet-adapter-button-trigger {
+  font-size: 14px;
+  font-family: 'sfPro-d2', sans-serif;
+  font-weight: 400;
+  color: light-dark(#fff, #000);
+  background: light-dark(#000, #fff) !important;
+  border-radius: 36px !important;
+  padding: 0px 24px !important;
+  height: 48px;
+  gap: 0px;
+  margin-bottom: 0px;
+  width: fit-content;
+}
+.wallet-adapter-button-trigger:active {
+  /*  add a small animatino when button is clicked */
+  transform: scale(0.95);
+}
+
+.wallet-adapter-button-trigger .wallet-adapter-button-start-icon > img {
+  width: 24px;
+  min-width: 24px;
+  height: 24px;
+}
+
+@media (max-width: 768px) {
+  .wallet-adapter-modal-wrapper {
+    border-radius: 24px;
+  }
+  .wallet-adapter-modal-wrapper:before {
+    content: 'Connect Wallet';
+    font-size: 18px;
+    padding: 20px 0px 16px 0px;
+  }
+  .wallet-adapter-modal-button-close {
+    top: 16px;
+    background: none;
+    color: light-dark(#8a8a8a, #707070);
+  }
+  .wallet-adapter-button .wallet-adapter-button-start-icon > img {
+    width: 32px;
+    min-width: 32px;
+    height: 32px;
+  }
+  .wallet-adapter-dropdown .wallet-adapter-button-trigger .wallet-adapter-button-start-icon {
+    display: none;
+  }
+  .wallet-adapter-button {
+    margin-bottom: 12px;
+    border-radius: 14px !important;
+    font-size: 12px;
+    gap: 8px;
+  }
+  .wallet-adapter-button-trigger {
+    font-size: 13px;
+    font-family: 'sfPro-d2', sans-serif;
+    font-weight: 400;
+    color: light-dark(#fff, #000);
+    background: light-dark(#000, #fff) !important;
+    border-radius: 36px !important;
+    padding: 0px 20px !important;
+    height: 42px;
+    gap: 0px;
+    margin-bottom: 0px;
+    width: fit-content;
+  }
+
+  .MuiOutlinedInput-root {
+    @apply !text-white;
+  }
+
+  /* Override styles for MuiStack-root and css-10o2lyd-MuiStack-root */
+  .css-10o2lyd-MuiStack-root,
+  .MuiStack-root {
+    @apply !pt-0; /* Apply no padding-top */
+    /* Add additional styles here */
+  }
+}
